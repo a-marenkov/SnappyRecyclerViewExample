@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:orientation="vertical"
+        tools:context=".ExampleActivity">
+
+        <amarenkov.android.snappyrecyclerview.SnappyRecyclerView
+            android:id="@+id/rv1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:overScrollMode="never" />
+
+        <amarenkov.android.snappyrecyclerview.SnappyRecyclerView
+            android:id="@+id/rv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp" />
+
+        <amarenkov.android.snappyrecyclerview.SnappyRecyclerView
+            android:id="@+id/rv3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:overScrollMode="never" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:clipChildren="false">
+
+            <include
+                android:id="@+id/target"
+                layout="@layout/item_thin"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:visibility="invisible" />
+
+            <amarenkov.android.snappyrecyclerview.SnappyRecyclerView
+                android:id="@+id/rv4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never" />
+        </FrameLayout>
+
+        <amarenkov.android.snappyrecyclerview.SnappyRecyclerView
+            android:id="@+id/rv5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp" />
+
+        <amarenkov.android.snappyrecyclerview.SnappyRecyclerView
+            android:id="@+id/rv6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:overScrollMode="never" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="56dp" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
