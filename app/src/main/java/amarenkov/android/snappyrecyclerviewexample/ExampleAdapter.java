@@ -13,19 +13,29 @@ import amarenkov.android.snappyrecyclerview.SnappyAdapter;
 
 public class ExampleAdapter extends SnappyAdapter<ExampleAdapter.ViewHolder> {
     private List<Integer> list;
-    private int layout;
+    int layout = R.layout.item_thin;
 
-    ExampleAdapter(List<Integer> list, int layout) {
+    ExampleAdapter(List<Integer> list) {
         this.list = list;
-        this.layout = layout;
+    }
+
+    void toggleItemWidth() {
+        if (layout == R.layout.item_thin) layout = R.layout.item_wide;
+        else layout = R.layout.item_thin;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (layout == R.layout.item_thin) return R.layout.item_thin;
+        else return R.layout.item_wide;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(layout, viewGroup, false));
+        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(i, viewGroup, false));
     }
-
 
     @Override
     public int getItemCount() {

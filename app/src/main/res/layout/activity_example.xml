@@ -51,6 +51,15 @@
                 android:layout_marginEnd="8dp"
                 android:visibility="invisible" />
 
+            <include
+                android:id="@+id/target2"
+                layout="@layout/item_wide"
+                android:layout_width="280dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:visibility="invisible" />
+
             <amarenkov.android.snappyrecyclerview.SnappyRecyclerView
                 android:id="@+id/rv4"
                 android:layout_width="match_parent"
@@ -58,25 +67,11 @@
                 android:overScrollMode="never" />
         </FrameLayout>
 
-        <amarenkov.android.snappyrecyclerview.SnappyRecyclerView
-            android:id="@+id/rv5"
+        <Button
+            android:id="@+id/btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_marginTop="24dp"
-            android:clipToPadding="false"
-            android:overScrollMode="never"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp" />
-
-        <amarenkov.android.snappyrecyclerview.SnappyRecyclerView
-            android:id="@+id/rv6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:overScrollMode="never" />
-
-        <android.support.v4.widget.Space
-            android:layout_width="match_parent"
-            android:layout_height="56dp" />
+            android:text="toggle item width" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

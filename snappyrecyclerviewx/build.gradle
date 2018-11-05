@@ -1,4 +1,32 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+
+ext {
+
+    bintrayRepo = "SnappyRecyclerView"
+    bintrayName = "amarenkov.android.snappyrecyclerviewx"
+    libraryName = 'snappyrecyclerviewx'
+
+    publishedGroupId = 'amarenkov.androidx'
+    artifact = 'snappyrecyclerview'
+
+    libraryDescription = 'RecyclerView with implementation of centering and snapping items'
+
+    siteUrl = 'https://github.com/a-marenkov/SnappyRecyclerViewExample'
+    gitUrl = 'https://github.com/a-marenkov/SnappyRecyclerViewExample.git'
+
+    libraryVersion = '0.1.0'
+
+    developerId = 'a-marenkov'
+    developerName = 'Alexander Marenkov'
+    developerEmail = 'dev.a.marenkov@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
 
 android {
     compileSdkVersion 28
@@ -30,5 +58,10 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-beta02'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+}
+
+if (project.rootProject.file('local.properties').exists()) {
+    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
 }

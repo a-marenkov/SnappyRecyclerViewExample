@@ -264,8 +264,8 @@ public class SnappyRecyclerView extends RecyclerView implements SnappyAdapter.Sn
      */
     public void smoothSnapToPosition(int position) {
         if (getLayoutManager() == null || mAdapter == null) return;
-        if (mCurentPosition != NO_POSITION
-                && mBehavior == Behavior.NOTIFY_ON_IDLE_AND_NO_POSITION) onNoItemCentered();
+        if (mBehavior == Behavior.NOTIFY_ON_IDLE_AND_NO_POSITION
+                && mCurentPosition != NO_POSITION) onNoItemCentered();
         smoothSnap(position);
     }
 
@@ -286,8 +286,8 @@ public class SnappyRecyclerView extends RecyclerView implements SnappyAdapter.Sn
      */
     public void smoothSnapBy(int dx, int dy) {
         if (mAdapter == null) return;
-        if (mCurentPosition != NO_POSITION
-                && mBehavior == Behavior.NOTIFY_ON_IDLE_AND_NO_POSITION) onNoItemCentered();
+        if (mBehavior == Behavior.NOTIFY_ON_IDLE_AND_NO_POSITION
+                && mCurentPosition != NO_POSITION) onNoItemCentered();
         smoothScrollBy(dx, dy);
     }
 
@@ -343,8 +343,26 @@ public class SnappyRecyclerView extends RecyclerView implements SnappyAdapter.Sn
     }
 
     public enum Behavior {
+        /**
+         * Adapter will be notified on state idle with position of the centered item
+         * and state dragging with position = -1
+         * <p>
+         * onBindViewHolder, onSnapedFromCenter and Callback's onItemCentered will be called
+         */
         NOTIFY_ON_IDLE_AND_NO_POSITION,
+
+        /**
+         * Adapter will be notified only on state idle with position of the centered item
+         * <p>
+         * onBindViewHolder, onSnapedFromCenter and Callback's onItemCentered will be called
+         */
         NOTIFY_ON_IDLE,
+
+        /**
+         * Adapter will be notified with position of the centered item even while dragging
+         * <p>
+         * Only Callback's onItemCentered will be called
+         */
         NOTIFY_ON_SCROLL
     }
 }
