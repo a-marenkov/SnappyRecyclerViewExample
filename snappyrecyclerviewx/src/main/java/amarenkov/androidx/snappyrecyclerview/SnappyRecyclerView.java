@@ -187,9 +187,9 @@ public class SnappyRecyclerView extends RecyclerView implements SnappyAdapter.Sn
 
                     @Override
                     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                        if (hasBeenDragged) {
+                        if (hasBeenDragged && mCurentPosition != NO_POSITION) {
                             hasBeenDragged = false;
-                            if (mCurentPosition != NO_POSITION) onNoItemCentered();
+                            onNoItemCentered();
                         } else if (isVertical) {
                             if (!canScrollVertically(1) || !canScrollVertically(-1))
                                 recyclerView.stopScroll();
