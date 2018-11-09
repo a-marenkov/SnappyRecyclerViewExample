@@ -176,6 +176,7 @@ public class SnappyRecyclerView extends RecyclerView implements SnappyAdapter.Sn
                     public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                         switch (newState) {
                             case SCROLL_STATE_IDLE:
+                                hasBeenDragged = false;
                                 onItemCentered();
                                 break;
                             case SCROLL_STATE_DRAGGING:
@@ -187,6 +188,7 @@ public class SnappyRecyclerView extends RecyclerView implements SnappyAdapter.Sn
 
                     @Override
                     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                        if (dx == 0 && dy == 0) return;
                         if (hasBeenDragged && mCurentPosition != NO_POSITION) {
                             hasBeenDragged = false;
                             onNoItemCentered();
@@ -246,6 +248,7 @@ public class SnappyRecyclerView extends RecyclerView implements SnappyAdapter.Sn
     /**
      * @return saved current snapped position (position of the center item)
      */
+    @Override
     public int getCurrentPosition() {
         return mCurentPosition;
     }
@@ -253,6 +256,7 @@ public class SnappyRecyclerView extends RecyclerView implements SnappyAdapter.Sn
     /**
      * @return true if layout of the snapped item should be updated
      */
+    @Override
     public boolean notifyOnSnap() {
         return mBehavior != Behavior.NOTIFY_ON_SCROLL;
     }
@@ -266,10 +270,10 @@ public class SnappyRecyclerView extends RecyclerView implements SnappyAdapter.Sn
         if (getLayoutManager() == null || mAdapter == null) return;
         if (mBehavior == Behavior.NOTIFY_ON_IDLE_AND_NO_POSITION
                 && mCurentPosition != NO_POSITION) onNoItemCentered();
-        smoothSnap(position);
+        smoothSnapTo(position);
     }
 
-    private void smoothSnap(int position) {
+    private void smoothSnapTo(int position) {
         View target = getLayoutManager().findViewByPosition(position);
         if (target == null) {
             smoothScrollToPosition(position);
@@ -295,6 +299,11 @@ public class SnappyRecyclerView extends RecyclerView implements SnappyAdapter.Sn
      * Instantly scrolls to position
      */
     public void snapToPosition(int position) {
+        snapTo(position);
+        if (mIsScrollEnabled) onItemCentered();
+    }
+
+    private void snapTo(int position) {
         View target = getLayoutManager().findViewByPosition(position);
         if (target == null) {
             scrollToPosition(position);
@@ -304,7 +313,6 @@ public class SnappyRecyclerView extends RecyclerView implements SnappyAdapter.Sn
         int[] dists = mSnapHelper.calculateDistanceToFinalSnap(getLayoutManager(), target);
         if (dists == null) return;
         scrollBy(dists[0], dists[1]);
-        onItemCentered();
     }
 
     /**
@@ -334,11 +342,8 @@ public class SnappyRecyclerView extends RecyclerView implements SnappyAdapter.Sn
                     break;
             }
             int snapTo = 0;
-            if (mCurentPosition != RecyclerView.NO_POSITION) {
-                snapTo = mCurentPosition;
-                mCurentPosition = RecyclerView.NO_POSITION;
-            }
-            snapToPosition(snapTo);
+            if (mCurentPosition != RecyclerView.NO_POSITION) snapTo = mCurentPosition;
+            snapTo(snapTo);
         }
     }
 
