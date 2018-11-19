@@ -17,7 +17,7 @@ ext {
     siteUrl = 'https://github.com/a-marenkov/SnappyRecyclerViewExample'
     gitUrl = 'https://github.com/a-marenkov/SnappyRecyclerViewExample.git'
 
-    libraryVersion = '0.1.2'
+    libraryVersion = '1.0.0-alpha'
 
     developerId = 'a-marenkov'
     developerName = 'Alexander Marenkov'

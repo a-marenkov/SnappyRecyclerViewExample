@@ -267,6 +267,7 @@ public class SnappyRecyclerView extends RecyclerView implements SnappyAdapter.Sn
      * @param position position of the item that will be placed in the center
      */
     public void smoothSnapToPosition(int position) {
+        if (getSnappedPosition() == position) return;
         if (getLayoutManager() == null || mAdapter == null) return;
         if (mBehavior == Behavior.NOTIFY_ON_IDLE_AND_NO_POSITION
                 && mCurentPosition != NO_POSITION) onNoItemCentered();
@@ -299,6 +300,7 @@ public class SnappyRecyclerView extends RecyclerView implements SnappyAdapter.Sn
      * Instantly scrolls to position
      */
     public void snapToPosition(int position) {
+        if (getSnappedPosition() == position) return;
         snapTo(position);
         if (mIsScrollEnabled) onItemCentered();
     }
