@@ -276,14 +276,32 @@ public class SnappyRecyclerView extends RecyclerView implements SnappyAdapter.Sn
 
     private void smoothSnapTo(int position) {
         View target = getLayoutManager().findViewByPosition(position);
-        if (target == null) {
-            smoothScrollToPosition(position);
-            target = getLayoutManager().findViewByPosition(position);
+        if (target != null) {
+            int[] dists = mSnapHelper.calculateDistanceToFinalSnap(getLayoutManager(), target);
+            if (dists == null) return;
+            smoothScrollBy(dists[0], dists[1]);
+        } else {
+            target = mSnapHelper.findSnapView(getLayoutManager());
             if (target == null) return;
+            int[] dists = mSnapHelper.calculateDistanceToFinalSnap(getLayoutManager(), target);
+            if (dists == null) return;
+            scrollBy(dists[0], dists[1]);
+
+            int index = getLayoutManager().getPosition(target);
+            RecyclerView.LayoutParams params = (LayoutParams) target.getLayoutParams();
+            int span;
+            float delta = position - index;
+            switch (((LinearLayoutManager) getLayoutManager()).getOrientation()) {
+                case RecyclerView.HORIZONTAL:
+                    span = target.getWidth() + params.leftMargin + params.rightMargin;
+                    smoothScrollBy((int) (span * delta), 0);
+                    break;
+                case RecyclerView.VERTICAL:
+                    span = target.getHeight() + params.topMargin + params.bottomMargin;
+                    smoothScrollBy(0, (int) (span * delta));
+                    break;
+            }
         }
-        int[] dists = mSnapHelper.calculateDistanceToFinalSnap(getLayoutManager(), target);
-        if (dists == null) return;
-        smoothScrollBy(dists[0], dists[1]);
     }
 
     /**
@@ -302,7 +320,10 @@ public class SnappyRecyclerView extends RecyclerView implements SnappyAdapter.Sn
     public void snapToPosition(int position) {
         if (getSnappedPosition() == position) return;
         snapTo(position);
-        if (mIsScrollEnabled) onItemCentered();
+        if (mIsScrollEnabled) {
+            mCurentPosition = position;
+            mAdapter.onNewItemCentered(mCurentPosition);
+        }
     }
 
     private void snapTo(int position) {
